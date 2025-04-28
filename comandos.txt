@@ -1,0 +1,10 @@
+# SEMPRE comece com:
+git pull upstream main
+
+# Depois de alterar arquivos:
+git add .
+git commit -m "mensagem"
+git pull upstream main  # verifica se há atualizações
+git push origin main
+
+Sempre execute git status antes para ver o que será adicionado!
