@@ -60,7 +60,7 @@ public class Disciplina{
     public List<String> getPreRequisitos(){
         return new ArrayList<>(preRequisitos);
     }
-
+     
     // --- Identidade (equals/hashCode) ---
     @Override
     public boolean equals(Object o) {
@@ -74,5 +74,5 @@ public class Disciplina{
     public int hashCode() {
         return Objects.hash(codigo);
     }
-
+    
 }
