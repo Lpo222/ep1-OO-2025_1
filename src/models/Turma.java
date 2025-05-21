@@ -1,6 +1,9 @@
 package models;
 
 import java.util.Objects;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 //Classe que representa as turmas, contendo seus números, disciplinas horarios e professores correspondentes
 public class Turma {
@@ -11,13 +14,19 @@ public class Turma {
     private String horario;
     private String professor;
     private int vagas;
+    private String sala;
+    private String avaliacao;
+    private Map<Aluno, Float> alunosMatriculados;
 
-    public Turma(int numero, Disciplina disciplina, String horario, String professor, int vagas){
+    public Turma(int numero, Disciplina disciplina, String horario, String professor, int vagas, String sala, String avaliacao){
         this.numero = Objects.requireNonNull(numero, "Nome nao pode ser nulo.");
         this.disciplina = Objects.requireNonNull(disciplina, "Disciplina não pode ser nula.");
         this.horario = horario;
         this.professor = professor;
         this.vagas = vagas;
+        this.sala = sala;
+        this.avaliacao = avaliacao;
+        this.alunosMatriculados = new HashMap();
     }
 
     //setters para as variáveis de Turma
@@ -39,6 +48,46 @@ public class Turma {
 
     public void setVagas(int vagas){
         this.vagas = vagas;
+    }
+
+    public void setSala(String sala){
+        this.sala = sala;
+    }
+
+    public void setAvaliacao(String avaliacao){
+        this.avaliacao = avaliacao;
+    }
+
+    public void matricularAluno(Aluno aluno){
+        Objects.requireNonNull(aluno);
+
+        if(vagas <= 0){
+            throw new IllegalStateException("Turma cheia");
+        }
+        if(alunosMatriculados.containsKey(aluno)){
+            throw new IllegalStateException("Aluno já matriculado nesta turma.");
+        }
+
+        alunosMatriculados.put(aluno, 0f);
+
+        vagas--;
+        
+        aluno.adicionarTurma(this);
+
+    }
+
+    public void registrarNota(Aluno aluno, float nota){
+
+        if(!alunosMatriculados.containsKey(aluno)){
+            throw new IllegalStateException("Aluno não está matriculado nesta turma.");
+        }
+
+        if(nota < 0){
+            throw new IllegalStateException("nota não pode ser negativa.");
+        }
+
+        alunosMatriculados.put(aluno, nota);
+
     }
 
     //getters
@@ -63,5 +112,16 @@ public class Turma {
         return vagas;
     }
 
+    public String getSala(){
+        return sala;
+    }
+
+    public String getAvaliacao(){
+        return avaliacao;
+    }
     
+    public float getNota(Aluno aluno){
+        return alunosMatriculados.getOrDefault(aluno, -1f);
+    }
+
 }

@@ -1,5 +1,6 @@
 package models;
 
+import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +13,9 @@ public abstract class Aluno {
     protected int matricula;
     protected List<String> nomeTurmasMatriculadas;
     protected List<Turma> turmasMatriculadas;
+    protected int presencas;
+    protected int faltas;
+    protected float nota;
 
     public Aluno(String nome, String curso, int matricula){
         this.nome = Objects.requireNonNull(nome, "Nome não pode ser nulo.");
@@ -19,6 +23,9 @@ public abstract class Aluno {
         this.matricula = matricula;
         this.nomeTurmasMatriculadas = new ArrayList<>();
         this.turmasMatriculadas = new ArrayList<>();
+        this.presencas = 0;
+        this.faltas = 0;
+        this.nota = 0;
     }
 
     //setters para nome, curso, matricula e disicplina:
@@ -55,6 +62,11 @@ public abstract class Aluno {
     
         Objects.requireNonNull("Turma nao pode ser nulo.");
 
+        String codigoDisciplina = turma.getDisciplina().getCodigo();
+        boolean jaMatriculado = turmasMatriculadas.stream().anyMatch(t -> t.getDisciplina().getCodigo().equals(codigoDisciplina));
+
+        if(jaMatriculado) throw new IllegalStateException("Aluno ja matriculado em: " + codigoDisciplina);
+
         if(turma.getVagas() != 0){
 
             Disciplina disciplinaEscolhida = turma.getDisciplina();
@@ -68,6 +80,12 @@ public abstract class Aluno {
         
         }
     
+    }
+
+    protected void adicionarTurma(Turma turma){
+        if(!turmasMatriculadas.contains(turma)){
+            turmasMatriculadas.add(turma);
+        }
     }
 
     public void cancelarMatricula(Turma turma){
@@ -90,5 +108,25 @@ public abstract class Aluno {
     public List<Turma> getTurmasMatriculadas(){
         return turmasMatriculadas;
     }
+
+    //controle de presença e nota
+
+    public void registrarPresenca(boolean presente){
+
+        if(presente == true){
+            this.presencas++;
+        } else{
+            this.faltas++;
+        }
+
+    }
+
+    public float consultarNota(Turma turma) {
+        if (!turmasMatriculadas.contains(turma)) {
+            throw new IllegalArgumentException("Aluno não está matriculado nesta turma");
+        }
+        return turma.getNota(this);
+    }
+    
 
 }
