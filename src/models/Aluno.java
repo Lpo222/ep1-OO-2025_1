@@ -1,6 +1,5 @@
 package models;
 
-import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,9 +12,11 @@ public abstract class Aluno {
     protected int matricula;
     protected List<String> nomeTurmasMatriculadas;
     protected List<Turma> turmasMatriculadas;
+    protected List<Disciplina> disciplinasConcluidas;
     protected int presencas;
     protected int faltas;
     protected float nota;
+
 
     public Aluno(String nome, String curso, int matricula){
         this.nome = Objects.requireNonNull(nome, "Nome não pode ser nulo.");
@@ -23,6 +24,7 @@ public abstract class Aluno {
         this.matricula = matricula;
         this.nomeTurmasMatriculadas = new ArrayList<>();
         this.turmasMatriculadas = new ArrayList<>();
+        this.disciplinasConcluidas = new ArrayList<>();
         this.presencas = 0;
         this.faltas = 0;
         this.nota = 0;
@@ -128,5 +130,21 @@ public abstract class Aluno {
         return turma.getNota(this);
     }
     
+    public void setDisciplinasConcluidas(Disciplina disciplina){
+        Objects.requireNonNull("disciplina não pode ser nulo.");
+
+        if(disciplinasConcluidas.contains(disciplina)){
+            throw new IllegalStateException("disciplina concluida ja registrada.");
+        }
+
+        disciplinasConcluidas.add(disciplina);
+        
+
+    }
+    
+    public List<Disciplina> getDisciplinasConcluidas(){
+        return disciplinasConcluidas;
+    }
+
 
 }
