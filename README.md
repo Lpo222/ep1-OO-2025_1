@@ -1,23 +1,3 @@
-<<<<<<< HEAD
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
-=======
 # Sistema Acadêmico - FCTE
 
 ## Descrição do Projeto
@@ -29,69 +9,119 @@ O enunciado do trabalho pode ser encontrado aqui:
 
 ## Dados do Aluno
 
-- **Nome completo:** [Preencher aqui]
-- **Matrícula:** [Preencher aqui]
-- **Curso:** [Preencher aqui]
-- **Turma:** [Preencher aqui]
+- **Nome completo:** Leonardo Póvoa Ortegal;
+- **Matrícula:** 232014075;
+- **Curso:** Eng. de Software;
+- **Turma:** 06;
 
 ---
 
 ## Instruções para Compilação e Execução
 
-1. **Compilação:**  
-   [Descrever aqui como compilar o projeto. Exemplo: `javac Main.java` ou o script usado]
+1.  **Pré-requisitos:**
+    * JDK (Java Development Kit) instalado (Versão openjdk 17.0.15 2025-04-15 ou superior).
+    * Git (para clonar o repositório, opcionalmente).
 
-2. **Execução:**  
-   [Descrever aqui como executar o projeto. Exemplo: `java Main` ou o script usado]
+2.  **Obtendo o Código:**
+    * Clone o repositório (se aplicável):
+        ```bash
+        git clone https://github.com/Lpo222/ep1-OO-2025_1
+        cd TP1
+        ```
+    * Ou baixe os arquivos do projeto e descompacte-os.
 
-3. **Estrutura de Pastas:**  
-   [Descrever aqui as principais pastas do projeto]
+3.  **Compilação:**
+    * Abra um terminal ou prompt de comando.
+    * Navegue até a pasta raiz do projeto (a pasta que contém a pasta `src` e `data`).
+    * Execute o seguinte comando para compilar os arquivos Java e colocar os arquivos `.class` em uma pasta `bin` (crie a pasta `bin` se não existir):
+        ```bash
+        javac -d bin -cp src src/Main.java src/models/*.java src/services/*.java src/utils/*.java
+        ```
+    * *Alternativa (se não usar a pasta `bin` e compilar tudo dentro de `src`):*
+        Navegue até a pasta `src`:
+        ```bash
+        cd src
+        javac Main.java models/*.java services/*.java utils/*.java
+        cd ..
+        ```
 
-3. **Versão do JAVA utilizada:**  
-   [Descrever aqui como versão do JAVA utilizada no projeto. Sugestão: `java 21`]
+4.  **Execução:**
+    * No terminal, a partir da pasta raiz do projeto (a mesma onde você compilou):
+        * Se usou a pasta `bin`:
+            ```bash
+            java -cp bin Main
+            ```
+        * Se compilou tudo dentro de `src` (e está na raiz do projeto):
+            ```bash
+            java -cp src Main
+            ```
+    * O programa iniciará e exibirá o menu principal no console. Os arquivos de dados (`alunos.txt`, `disciplinas.txt`, etc.) serão criados/lidos na pasta `data/` (localizada na raiz do projeto).
+
+5.  **Estrutura de Pastas Principal:**
+    ```
+    [NOME_DA_RAIZ_DO_PROJETO]/
+    ├── src/                # Código fonte (.java)
+    │   ├── models/         # Classes de entidade (Aluno, Disciplina, Turma, etc.)
+    │   ├── services/       # Classes de lógica de negócio e persistência (AlunoService, etc.)
+    │   ├── utils/          # Classes utilitárias (ArquivosUtils)
+    │   └── Main.java       # Classe principal com a interface do usuário via terminal
+    ├── data/               # Arquivos de dados (.txt) gerados/lidos pelo sistema
+    ├── bin/                # Arquivos compilados (.class) - (opcional, depende do método de compilação)
+    └── README.md           # Este arquivo
+    ```
+
+6.  **Versão do JAVA utilizada:**
+    * openjdk 17.0.15 2025-04-15
 
 ---
 
 ## Vídeo de Demonstração
 
-- [Inserir o link para o vídeo no YouTube/Drive aqui]
+-
 
 ---
 
-## Prints da Execução
 
-1. Menu Principal:  
-   ![Inserir Print 1](caminho/do/print1.png)
-
-2. Cadastro de Aluno:  
-   ![Inserir Print 2](caminho/do/print2.png)
-
-3. Relatório de Frequência/Notas:  
-   ![Inserir Print 3](caminho/do/print3.png)
-
----
 
 ## Principais Funcionalidades Implementadas
 
-- [ ] Cadastro, listagem, matrícula e trancamento de alunos (Normais e Especiais)
-- [ ] Cadastro de disciplinas e criação de turmas (presenciais e remotas)
-- [ ] Matrícula de alunos em turmas, respeitando vagas e pré-requisitos
-- [ ] Lançamento de notas e controle de presença
-- [ ] Cálculo de média final e verificação de aprovação/reprovação
-- [ ] Relatórios de desempenho acadêmico por aluno, turma e disciplina
-- [ ] Persistência de dados em arquivos (.txt ou .csv)
-- [ ] Tratamento de duplicidade de matrículas
-- [ ] Uso de herança, polimorfismo e encapsulamento
+
+
+- [ ] **Modo Aluno:**
+    - [x] Cadastro de Alunos (Normais e Especiais)
+    - [x] Listagem de Alunos
+    - [x] Matrícula de Alunos em Turmas (com verificação de vagas, pré-requisitos e tipo de aluno)
+    - [ ] Edição de Alunos
+    - [ ] Trancamento de Disciplina para Aluno
+    - [ ] Trancamento de Semestre para Aluno
+- [ ] **Modo Disciplina/Turma:**
+    - [x] Cadastro de Disciplinas (com código, nome, carga horária, pré-requisitos)
+    - [x] Listagem de Disciplinas
+    - [x] Criação de Turmas para Disciplinas (com número, professor, horário, capacidade)
+    - [x] Listagem de Turmas (com detalhes básicos)
+    - [ ] Listagem de Alunos Matriculados por Turma (detalhada)
+- [ ] **Modo Avaliação/Frequência:**
+    - [x] Lançamento de Notas para alunos (respeitando Aluno Especial)
+    - [x] Registro de Aula Ministrada para Turma
+    - [x] Lançamento de Presença para Aluno (com ressalvas sobre a lógica de contagem na Turma)
+    - [x] Verificação de Situação do Aluno na Turma (Nota, Frequência Simplificada, Status Aprovação)
+    - [ ] Cálculo de Média Final (conforme as duas fórmulas do enunciado)
+    - [ ] Relatórios de desempenho (básicos ou completos)
+    - [ ] Exibição de Boletim por Aluno
+- [ ] **Geral:**
+    - [x] Persistência de dados de Alunos, Disciplinas e Turmas em arquivos (`.txt`)
+    - [x] Menu principal navegável via terminal
+    - [x] Uso de Herança (Aluno -> AlunoNormal, AlunoEspecial)
+    - [x] Uso de Polimorfismo (ex: ao tratar a lista `todosAlunos`)
+    - [x] Encapsulamento nas classes de modelo e serviço
+    - [x] Verificação de duplicidade de matrícula de aluno e código de disciplina
 
 ---
 
 ## Observações (Extras ou Dificuldades)
 
-- [Espaço para o aluno comentar qualquer funcionalidade extra que implementou, dificuldades enfrentadas, ou considerações importantes.]
+- Main mesmo que incompleto ficou imenso. Minha primeira vez fazendo um projeto que envolvesse mais de um arquivo, acabei me perdendo multiplas vezes
+na própria estrutua dos folders.
 
 ---
 
-## Contato
-
-- [Opcional: E-mail pessoal do aluno.]
->>>>>>> feb74cad779ac50522c638e8c5173a30470cb705

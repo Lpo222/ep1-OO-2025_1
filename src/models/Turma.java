@@ -1,7 +1,6 @@
 package models;
 
 import java.util.Objects;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,8 +28,8 @@ public class Turma {
         this.sala = sala;
         this.avaliacao = avaliacao;
         this.aulasMinistradas = 0;
-        this.alunosMatriculados = new HashMap();
-        this.presenca = new HashMap();
+        this.alunosMatriculados = new HashMap<>();
+        this.presenca = new HashMap<>();
     }
 
     //setters para as variáveis de Turma
