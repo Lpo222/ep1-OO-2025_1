@@ -16,6 +16,7 @@ public class Turma {
     private int vagas;
     private String sala;
     private String avaliacao;
+    private int aulasMinistradas;
     private Map<Aluno, Float> alunosMatriculados;
     private Map<Aluno, Integer> presenca;
 
@@ -27,6 +28,7 @@ public class Turma {
         this.vagas = vagas;
         this.sala = sala;
         this.avaliacao = avaliacao;
+        this.aulasMinistradas = 0;
         this.alunosMatriculados = new HashMap();
         this.presenca = new HashMap();
     }
@@ -92,6 +94,19 @@ public class Turma {
 
     }
 
+    public void aulaMinistrada(){
+        aulasMinistradas++;
+    }
+
+    public void setAulasMinistradas(int aulasMinistradas){
+        this.aulasMinistradas = aulasMinistradas;
+    }
+
+    public int getAulasMinistradas(){
+        return aulasMinistradas;
+    }
+
+
     public void registrarPresenca(Aluno aluno, boolean presente){
     
         if(!presenca.containsKey(aluno)){
@@ -99,6 +114,7 @@ public class Turma {
         }
 
         presenca.put(aluno, presente ? 1 : 0);
+        aulaMinistrada();
 
     }
 
@@ -137,7 +153,7 @@ public class Turma {
     }
 
     public int getPresenca(Aluno aluno){
-        return presenca.getOrDefault(aluno, -1);
+        return presenca.getOrDefault(aluno, -1) / aulasMinistradas;
     }
 
 }
