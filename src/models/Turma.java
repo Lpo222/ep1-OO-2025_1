@@ -17,6 +17,7 @@ public class Turma {
     private String sala;
     private String avaliacao;
     private Map<Aluno, Float> alunosMatriculados;
+    private Map<Aluno, Integer> presenca;
 
     public Turma(int numero, Disciplina disciplina, String horario, String professor, int vagas, String sala, String avaliacao){
         this.numero = Objects.requireNonNull(numero, "Nome nao pode ser nulo.");
@@ -27,6 +28,7 @@ public class Turma {
         this.sala = sala;
         this.avaliacao = avaliacao;
         this.alunosMatriculados = new HashMap();
+        this.presenca = new HashMap();
     }
 
     //setters para as variáveis de Turma
@@ -90,6 +92,16 @@ public class Turma {
 
     }
 
+    public void registrarPresenca(Aluno aluno, boolean presente){
+    
+        if(!presenca.containsKey(aluno)){
+            throw new IllegalStateException("Aluno não está matriculado nesta turma.");
+        }
+
+        presenca.put(aluno, presente ? 1 : 0);
+
+    }
+
     //getters
 
     public int getNumero(){
@@ -122,6 +134,10 @@ public class Turma {
     
     public float getNota(Aluno aluno){
         return alunosMatriculados.getOrDefault(aluno, -1f);
+    }
+
+    public int getPresenca(Aluno aluno){
+        return presenca.getOrDefault(aluno, -1);
     }
 
 }

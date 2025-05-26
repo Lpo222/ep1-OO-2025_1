@@ -12,12 +12,14 @@ public class Disciplina{
     //informações contidas em Disciplina
     protected String codigo;
     protected String nome;
+    protected int cargaHoraria;
     protected List<String> preRequisitos;
 
-    public Disciplina(String codigo, String nome, List<String> preRequisitos){
+    public Disciplina(String codigo, String nome, List<String> preRequisitos, int cargaHoraria){
         this.codigo = Objects.requireNonNull(codigo, "Codigo da disciplina não pode ser nulo.");
         this.nome = Objects.requireNonNull(nome, "Nome não pode ser nulo.");
         this.preRequisitos = new ArrayList<>(preRequisitos);
+        this.cargaHoraria = cargaHoraria;
     }
 
     //setters para codigo, nome e pré requisitos
@@ -29,6 +31,11 @@ public class Disciplina{
     public void setNome(String nome){
         this.nome = Objects.requireNonNull(nome, "Nome não pode ser nulo.");
     }
+
+    public void setCargaHoraria(int cargaHoraria){
+        this.cargaHoraria = cargaHoraria;
+    }
+
 
     public void registraPreRequisitos(String codigoPreRequisito){
         Objects.requireNonNull(codigoPreRequisito, "Código de pré-requisito não pode ser nulo.");
@@ -56,6 +63,11 @@ public class Disciplina{
     public String getNome(){
         return nome;
     }
+
+    public int getCargaHoraria(){
+        return cargaHoraria;
+    }
+
 
     public List<String> getPreRequisitos(){
         return new ArrayList<>(preRequisitos);

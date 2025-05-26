@@ -2,7 +2,7 @@ package models;
 
 import java.util.Objects;
 
-public abstract class AlunoEspecial extends Aluno{
+public class AlunoEspecial extends Aluno{
     
     public AlunoEspecial(String nome, String curso, int matricula){
         super(nome, curso, matricula);
@@ -19,7 +19,7 @@ public abstract class AlunoEspecial extends Aluno{
     @Override
     public void matricularEmDisciplina(Turma turma){
 
-        Objects.requireNonNull("Turma nao pode ser nulo.");
+        Objects.requireNonNull(turma, "Turma nao pode ser nulo.");
 
         if(turmasMatriculadas.size() >= maxDisciplinas){
             throw new IllegalStateException("Alunos especiais podem se matricular em, no máximo: " + maxDisciplinas + " disciplinas.");

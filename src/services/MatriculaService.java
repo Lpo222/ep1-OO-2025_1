@@ -21,7 +21,8 @@ public class MatriculaService {
     }
 
     private List<String> getPreRequisitosFaltantes(Aluno aluno, Turma turma){
-        return turma.getDisciplina().getPreRequisitos().stream().filter(req -> !aluno.getDisciplinasConcluidas().contains(req)).toList();
+        List<String> codigosDisciplinasConcluidas = aluno.getDisciplinasConcluidas().stream().map(Disciplina::getCodigo).collect(Collectors.toList());
+        return turma.getDisciplina().getPreRequisitos().stream().filter(req -> !codigosDisciplinasConcluidas.contains(req)).toList();    
     }
 
 

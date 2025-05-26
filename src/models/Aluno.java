@@ -13,9 +13,6 @@ public abstract class Aluno {
     protected List<String> nomeTurmasMatriculadas;
     protected List<Turma> turmasMatriculadas;
     protected List<Disciplina> disciplinasConcluidas;
-    protected int presencas;
-    protected int faltas;
-    protected float nota;
 
 
     public Aluno(String nome, String curso, int matricula){
@@ -25,9 +22,6 @@ public abstract class Aluno {
         this.nomeTurmasMatriculadas = new ArrayList<>();
         this.turmasMatriculadas = new ArrayList<>();
         this.disciplinasConcluidas = new ArrayList<>();
-        this.presencas = 0;
-        this.faltas = 0;
-        this.nota = 0;
     }
 
     //setters para nome, curso, matricula e disicplina:
@@ -62,7 +56,7 @@ public abstract class Aluno {
 
     public void matricularEmDisciplina(Turma turma){
     
-        Objects.requireNonNull("Turma nao pode ser nulo.");
+        Objects.requireNonNull(turma, "Turma nao pode ser nulo.");
 
         String codigoDisciplina = turma.getDisciplina().getCodigo();
         boolean jaMatriculado = turmasMatriculadas.stream().anyMatch(t -> t.getDisciplina().getCodigo().equals(codigoDisciplina));
@@ -92,10 +86,12 @@ public abstract class Aluno {
 
     public void cancelarMatricula(Turma turma){
 
-        Objects.requireNonNull("turma nao pode ser nulo");
+        Objects.requireNonNull(turma, "turma nao pode ser nulo");
 
         if(turmasMatriculadas.contains(turma)){
             turmasMatriculadas.remove(turma);
+            turma.setVagas(turma.getVagas() + 1);
+            nomeTurmasMatriculadas.remove(turma.getDisciplina().getNome());
         } else{
             Disciplina disciplina = turma.getDisciplina();
             throw new IllegalStateException("Aluno nao estava matriclado em " + disciplina.getNome());
@@ -111,17 +107,6 @@ public abstract class Aluno {
         return turmasMatriculadas;
     }
 
-    //controle de presença e nota
-
-    public void registrarPresenca(boolean presente){
-
-        if(presente == true){
-            this.presencas++;
-        } else{
-            this.faltas++;
-        }
-
-    }
 
     public float consultarNota(Turma turma) {
         if (!turmasMatriculadas.contains(turma)) {
@@ -131,7 +116,7 @@ public abstract class Aluno {
     }
     
     public void setDisciplinasConcluidas(Disciplina disciplina){
-        Objects.requireNonNull("disciplina não pode ser nulo.");
+        Objects.requireNonNull(disciplina, "disciplina não pode ser nulo.");
 
         if(disciplinasConcluidas.contains(disciplina)){
             throw new IllegalStateException("disciplina concluida ja registrada.");
