@@ -156,4 +156,12 @@ public class Turma {
         return presenca.getOrDefault(aluno, -1) / aulasMinistradas;
     }
 
+    public Map<Aluno, Float> getAlunosMatriculados(){
+        return alunosMatriculados;
+    }
+
+    public Map<Aluno, Integer> getPresenca(){
+        return presenca;
+    }
+
 }
