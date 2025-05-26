@@ -13,7 +13,7 @@ public class DisciplinaService {
 
     private static final String ARQUIVO_DISCIPLINAS = "data/disciplinas.txt";
 
-    public void gravarDadosDisciplina(List<Disciplina> disciplinas) throws IOException {
+    public void gravarDadosDisciplinas(List<Disciplina> disciplinas) throws IOException {
         if(disciplinas == null) {
             disciplinas = new ArrayList<>();
         }
